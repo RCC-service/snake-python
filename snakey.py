@@ -12,40 +12,40 @@ red = (213, 50, 80)
 green = (0, 255, 0)
 blue = (50, 153, 213)
 
-# Define display dimensions
+# BLOCKS SIZE
 dis_width = 800
 dis_height = 600
 
-# Create display
+# this SHOULD make display
 dis = pygame.display.set_mode((dis_width, dis_height))
 pygame.display.set_caption('shitty snake game i made in the morning')
 
 clock = pygame.time.Clock()
 
-# Define snake properties
+# snake properties and shit
 snake_block = 10
 snake_speed = 15
 
-# Define fonts
+# fonts  or some shit
 font_style = pygame.font.SysFont("bahnschrift", 25)
 score_font = pygame.font.SysFont("comicsansms", 35)
 
-# Function to display the player's score
+# player scorepls work my check error log shit
 def Your_score(score):
     value = score_font.render("Your Score: " + str(score), True, black)
     dis.blit(value, [0, 0])
 
-# Function to draw the snake
+# make your snake increas in 1 inch.. ooohh were getting freaky.
 def our_snake(snake_block, snake_list):
     for x in snake_list:
         pygame.draw.rect(dis, black, [x[0], x[1], snake_block, snake_block])
 
-# Function to display a message on the screen
+# messages and sip control texts 
 def message(msg, color):
     mesg = font_style.render(msg, True, color)
     dis.blit(mesg, [dis_width / 6, dis_height / 3])
 
-# Main game loop
+# loop
 def gameLoop():
     game_over = False
     game_close = False
