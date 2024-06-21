@@ -12,7 +12,7 @@ red = (213, 50, 80)
 green = (0, 255, 0)
 blue = (50, 153, 213)
 
-# BLOCKS SIZE
+# BLOCKS SIZe
 dis_width = 800
 dis_height = 600
 
@@ -67,6 +67,76 @@ def gameLoop():
         while game_close == True:
             dis.fill(blue)
             message("GET LOST LMAOOOO press q-Quit or c-Play to play :3", red)
+           import pygame
+import time
+import random
+from collections import deque
+
+pygame.init()
+
+# remember the colors
+white = (255, 255, 255)
+yellow = (255, 255, 102)
+black = (0, 0, 0)
+red = (213, 50, 80)
+green = (0, 255, 0)
+blue = (50, 153, 213)
+
+# Define display dimensions
+dis_width = 800
+dis_height = 600
+
+# Create display
+dis = pygame.display.set_mode((dis_width, dis_height))
+pygame.display.set_caption('Snake Game by GPT-4')
+
+clock = pygame.time.Clock()
+
+# Define snake properties
+snake_block = 10
+snake_speed = 15
+
+# Define fonts
+font_style = pygame.font.SysFont("bahnschrift", 25)
+score_font = pygame.font.SysFont("comicsansms", 35)
+
+# display the player's score
+def Your_score(score):
+    value = score_font.render("Your Score: " + str(score), True, white)
+    dis.blit(value, [0, 0])
+
+# to draw the snake
+def our_snake(snake_block, snake_list):
+    for x in snake_list:
+        pygame.draw.rect(dis, black, [x[0], x[1], snake_block, snake_block])
+
+# to display a message on the screen
+def message(msg, color):
+    mesg = font_style.render(msg, True, color)
+    text_rect = mesg.get_rect(center=(dis_width // 2, dis_height // 3))
+    dis.blit(mesg, text_rect)
+
+# Game loop and diddy and shit
+def gameLoop():
+    game_over = False
+    game_close = False
+
+    x1 = dis_width / 2
+    y1 = dis_height / 2
+
+    x1_change = 0
+    y1_change = 0
+
+    snake_List = deque()
+    Length_of_snake = 1
+
+    foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
+    foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
+
+    while not game_over:
+        while game_close:
+            dis.fill(blue)
+            message("You Lost! Press Q-Quit or C-Play Again", red)
             Your_score(Length_of_snake - 1)
             pygame.display.update()
 
@@ -101,12 +171,10 @@ def gameLoop():
         y1 += y1_change
         dis.fill(blue)
         pygame.draw.rect(dis, green, [foodx, foody, snake_block, snake_block])
-        snake_Head = []
-        snake_Head.append(x1)
-        snake_Head.append(y1)
+        snake_Head = [x1, y1]
         snake_List.append(snake_Head)
         if len(snake_List) > Length_of_snake:
-            del snake_List[0]
+            snake_List.popleft()
 
         for x in snake_List[:-1]:
             if x == snake_Head:
@@ -123,8 +191,9 @@ def gameLoop():
             Length_of_snake += 1
 
         clock.tick(snake_speed)
+        time.sleep(0.1)  # updated 
 
     pygame.quit()
     quit()
 
-gameLoop
+gameLoop()
